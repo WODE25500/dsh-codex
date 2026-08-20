@@ -1,0 +1,35 @@
+{
+  "name": "dsh-codex",
+  "version": "0.1.0",
+  "description": "OpenAI Codex CLI integration for DeepSeek Harness: run one-shot codex tasks, repo reviews and session resumes as native dsh tools, with read-only sandbox by default.",
+  "type": "module",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "skills",
+    "docs",
+    "README.md",
+    "README.en.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis",
+    "plugin",
+    "codex",
+    "openai-codex",
+    "cli",
+    "code-review",
+    "agent"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-tools": "*"
+  }
+}
