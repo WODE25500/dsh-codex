@@ -1,0 +1,18 @@
+# dsh-codex bundle patch layer.
+# When a profile lists this bundle, this patch inserts the plugin rows below.
+#
+# Usage in a profile's cordis.patch.yml / dsh.profile bundles list:
+#   bundles:
+#     - dsh-codex
+# or with a local checkout:
+#   - insert:
+#       - id: codex
+#         name: './src/index.js'
+
+- insert:
+    - id: codex
+      name: './src/index.js'
+      # config:
+      #   model: deepseek-v4-flash     # empty = use ~/.codex/config.toml
+      #   sandbox: read-only           # read-only | workspace-write | danger-full-access
+      #   cd: /path/to/workspace       # default working root for codex sessions
