@@ -42,7 +42,7 @@ codex --version
 ```yaml
 - insert:
     - id: codex
-      name: './src/index.js'
+      name: 'dsh-codex'
       config:
         model: deepseek-v4-flash   # 空 = 用 ~/.codex/config.toml
         sandbox: read-only         # read-only | workspace-write | danger-full-access
@@ -57,6 +57,16 @@ pnpm dsh web --patch ./dsh-codex/cordis.patch.yml
 ```
 
 启动后向 agent 提问："用 codex_status 看一下 Codex 状态"。
+
+## 故障排查
+
+- 如果插件显示“未运行”，且日志提示 `Cannot find package
+  '@deepseek-ai/schemastery'`，请确认使用 `dsh-codex >= 0.1.1`；旧版没有声明该
+  peer dependency，DSH 0.2 无法把内置模块路由给插件。
+- profile 级 `cordis.patch.yml` 的 `name` 应写包名 `dsh-codex`。`./src/index.js`
+  只适用于插件自身 bundle patch 或本地开发命令。
+- 修改插件 `package.json` 或 peer dependencies 后需要重启 DSH；HMR 不会重新加载
+  这些元数据。
 
 ## 用法
 

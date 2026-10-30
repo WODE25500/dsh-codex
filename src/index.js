@@ -12,6 +12,7 @@ import { defineTool } from '@deepseek-ai/dsh-tools'
 import { existsSync, readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
+import { runShell } from './shell.js'
 
 export const name = 'codex'
 
@@ -240,7 +241,7 @@ export function apply(ctx, config = {}) {
           }
           const command = t.build(args || {})
           try {
-            const result = await shell.run({
+            const result = await runShell(shell, {
               command,
               timeoutMs: config.timeoutMs,
               signal: exec?.signal,
@@ -273,7 +274,7 @@ async function statusBody(config, shell, exec) {
   const codex = config.codexPath || 'codex'
   const lines = []
   try {
-    const v = await shell.run({ command: `${codex} --version`, timeoutMs: config.timeoutMs, signal: exec?.signal })
+    const v = await runShell(shell, { command: `${codex} --version`, timeoutMs: config.timeoutMs, signal: exec?.signal })
     const version = String(v?.stdout ?? '').trim()
     lines.push(version ? `codex CLI: ${version}` : `codex CLI: exit=${v?.exitCode ?? '?'}`)
   } catch (err) {

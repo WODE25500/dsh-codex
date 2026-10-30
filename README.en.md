@@ -48,7 +48,7 @@ Add `dsh-codex` to the profile's bundles, or in the profile `cordis.patch.yml`:
 ```yaml
 - insert:
     - id: codex
-      name: './src/index.js'
+      name: 'dsh-codex'
       config:
         model: deepseek-v4-flash   # empty = use ~/.codex/config.toml
         sandbox: read-only         # read-only | workspace-write | danger-full-access
@@ -62,6 +62,17 @@ pnpm dsh web --patch ./dsh-codex/cordis.patch.yml
 ```
 
 Then ask the agent: "use codex_status to check the Codex setup".
+
+## Troubleshooting
+
+- If the plugin is not running and the log reports `Cannot find package
+  '@deepseek-ai/schemastery'`, use `dsh-codex >= 0.1.1`. Older versions did not
+  declare that peer dependency, so DSH 0.2 cannot route its built-in package to
+  the plugin.
+- A profile-level `cordis.patch.yml` must use `name: 'dsh-codex'`.
+  `./src/index.js` is only for the plugin's own bundle patch or local development.
+- Restart DSH after changing the plugin's `package.json` or peer dependencies;
+  HMR does not reload that metadata.
 
 ## Usage
 
